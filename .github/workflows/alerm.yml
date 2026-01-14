@@ -1,0 +1,16 @@
+name: Discord Weekly Notification
+
+on:
+  schedule:
+    - cron: '0 1 * * 1'  # UTC 기준, 한국시간 월요일 10시 = UTC 월요일 01시
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord Message
+        run: |
+          curl -X POST "${{ secrets.DISCORD_WEBHOOK }}" \
+            -H "Content-Type: application/json" \
+            -d '{"content": "📢 월요일! 이번 주 목표를 올려주세요!"}'
